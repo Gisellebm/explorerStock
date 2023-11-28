@@ -1,19 +1,15 @@
-const AppError = require("../utils/AppError");
+const AppError = require("../utils/AppError")
 
-// roleToVerify = recebe 'admin' ou 'customer'
+function verifyUserAuthorization(roleToVerify){
+  return (request, response, next) => {
+    const { role } = request.user
 
-//['admin', 'customer', 'sale'].includes('sale');
-
-function verifyUserAuthorization(roleToVerify) {
-    return (request, response, next) => {
-      const { role } = request.user;
-
-      if (!roleToVerify.includes(role)) {
-        throw new AppError("Unauthorized", 401);
-      }
-
-      return next();
+    if(!roleToVerify.includes(role)) {
+      throw new AppError("Unauthorized", 401)
     }
+
+    return next()
+  }
 }
 
 module.exports = verifyUserAuthorization

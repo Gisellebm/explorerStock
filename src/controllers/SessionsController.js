@@ -28,13 +28,13 @@ class SessionsController {
     });
 
     response.cookie("token", token, {
-      maxAge: 15 * 60 * 1000,
       httpOnly: true,
-      sameSite: "none",
-      secure: true
+      sameSite: "Strict",
+      secure: true,
+      maxAge: 15 * 60 * 1000
     })
 
-    delete user.password;
+    delete user.password
 
     response.status(201).json({ user });
   }
